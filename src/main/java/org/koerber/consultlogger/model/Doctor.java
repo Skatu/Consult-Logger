@@ -15,5 +15,13 @@ public class Doctor {
     private Long id;
     private String name;
     @OneToOne
-    private Specialty doctor;
+    private Specialty specialty;
+
+    protected Doctor() {
+    }
+
+    public Doctor(String name, Specialty specialty) {
+        this.name = name;
+        this.specialty = specialty;
+    }
 }

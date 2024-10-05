@@ -16,4 +16,11 @@ public class Symptom {
     @Id
     private Long id;
     private String description;
+
+    protected Symptom() {
+    }
+
+    public Symptom(String description) {
+        this.description = description;
+    }
 }

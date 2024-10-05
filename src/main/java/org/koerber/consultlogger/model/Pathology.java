@@ -13,6 +13,7 @@ import java.util.UUID;
 public class Pathology {
     @Id
     private Long id;
+    private String name;
     @Column(unique = true)
     @OneToMany
     private List<Symptom> symptoms;
