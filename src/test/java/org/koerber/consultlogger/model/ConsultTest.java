@@ -10,16 +10,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class ConsultTest {
-    private Specialty specialty1;
-    private Specialty specialty2;
     private Patient patient;
     private Doctor doctor1;
     private Doctor doctor2;
 
     @BeforeEach
     void setUp() {
-        specialty1 = new Specialty("specialty 1");
-        specialty2 = new Specialty("specialty 2");
+        var specialty1 = new Specialty("specialty 1");
+        var specialty2 = new Specialty("specialty 2");
         doctor1 = new Doctor("António", specialty1);
         doctor2 = new Doctor("Maria", specialty2);
         patient = new Patient("Test1", 1, Collections.emptyList());
@@ -27,7 +25,7 @@ public class ConsultTest {
     @Test
     void test(){
         var exception = assertThrows(InvalidSpecialtyException.class, () ->
-                new Consult(doctor1, patient, specialty2));
+                new Consult(doctor1, patient));
         var expectedMessage = "Doctor not assigned to specialty";
         var actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
@@ -35,8 +33,8 @@ public class ConsultTest {
 
     @Test
     void testEqualsForEqualObjects() throws InvalidSpecialtyException {
-        var consult1 = new Consult(doctor1, patient, specialty1);
-        var consult2 = new Consult(doctor1, patient, specialty1);
+        var consult1 = new Consult(doctor1, patient);
+        var consult2 = new Consult(doctor1, patient);
         consult1.setId(1L);
         consult2.setId(1L);
         assertEquals(consult1, consult2);
@@ -44,8 +42,8 @@ public class ConsultTest {
 
     @Test
     void testEqualsForNonEqualObjects() throws InvalidSpecialtyException {
-        var consult1 = new Consult(doctor1, patient, specialty1);
-        var consult2 = new Consult(doctor2, patient, specialty2);
+        var consult1 = new Consult(doctor1, patient);
+        var consult2 = new Consult(doctor2, patient);
         consult1.setId(1L);
         consult2.setId(1L);
         assertNotEquals(consult1, consult2);
@@ -53,15 +51,15 @@ public class ConsultTest {
 
     @Test
     void testHashCodeForEqualObjects() throws InvalidSpecialtyException {
-        var consult1 = new Consult(doctor1, patient, specialty1);
-        var consult2 = new Consult(doctor1, patient, specialty1);
+        var consult1 = new Consult(doctor1, patient);
+        var consult2 = new Consult(doctor1, patient);
         assertEquals(consult1.hashCode(), consult2.hashCode());
     }
 
     @Test
     void testHashCodeForNonEqualObjects() throws InvalidSpecialtyException {
-        var consult1 = new Consult(doctor1, patient, specialty1);
-        var consult2 = new Consult(doctor2, patient, specialty2);
+        var consult1 = new Consult(doctor1, patient);
+        var consult2 = new Consult(doctor2, patient);
         assertNotEquals(consult1.hashCode(), consult2.hashCode());
     }
 }

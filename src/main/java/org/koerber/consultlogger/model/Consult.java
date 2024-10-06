@@ -48,10 +48,7 @@ public class Consult {
 
     }
 
-    public Consult(@NonNull Doctor doctor, @NonNull Patient patient, Specialty specialty) throws InvalidSpecialtyException {
-        if (!doctor.hasSpecialty(specialty)) {
-            throw new InvalidSpecialtyException("Doctor not assigned to specialty");
-        }
+    public Consult(@NonNull Doctor doctor, @NonNull Patient patient) {
         this.doctor = doctor;
         this.patient = patient;
         this.specialty = doctor.getSpecialty();
