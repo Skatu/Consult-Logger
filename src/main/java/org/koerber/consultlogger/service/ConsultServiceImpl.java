@@ -1,7 +1,6 @@
 package org.koerber.consultlogger.service;
 
 import jakarta.transaction.Transactional;
-import org.koerber.consultlogger.controller.ConsultService;
 import org.koerber.consultlogger.dto.ConsultDTO;
 import org.koerber.consultlogger.exception.DoctorNotFoundException;
 import org.koerber.consultlogger.exception.InvalidSpecialtyException;
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ConsultServiceImpl implements ConsultService {
-    //TODO Logs
+
     private final ConsultRepository consultRepository;
     private final DoctorRepository doctorRepository;
     private final PatientRepository patientRepository;
@@ -43,11 +42,11 @@ public class ConsultServiceImpl implements ConsultService {
     private Consult mapConsultDTOToConsult(ConsultDTO dto) throws DoctorNotFoundException,
             SpecialtyNotFoundException, PatientNotFoundException, InvalidSpecialtyException {
         var doctor = doctorRepository.findById(dto.doctorId())
-                .orElseThrow(()->new DoctorNotFoundException(dto.doctorId()));
+                .orElseThrow(() -> new DoctorNotFoundException(dto.doctorId()));
         var specialty = specialtyRepository.findById(dto.specialtyId())
-                .orElseThrow(()-> new SpecialtyNotFoundException(dto.specialtyId()));
+                .orElseThrow(() -> new SpecialtyNotFoundException(dto.specialtyId()));
         var patient = patientRepository.findById(dto.patientId())
-                .orElseThrow(()-> new PatientNotFoundException(dto.patientId()));
+                .orElseThrow(() -> new PatientNotFoundException(dto.patientId()));
         return new Consult(doctor, patient, specialty);
     }
 }

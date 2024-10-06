@@ -1,6 +1,5 @@
 package org.koerber.consultlogger.repository;
 
-import org.koerber.consultlogger.model.Consult;
 import org.koerber.consultlogger.model.Doctor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

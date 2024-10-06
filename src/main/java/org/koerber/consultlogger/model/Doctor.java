@@ -1,10 +1,12 @@
 package org.koerber.consultlogger.model;
 
+import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import java.util.Objects;
@@ -17,14 +19,19 @@ public class Doctor {
     @Id
     @GeneratedValue
     private Long id;
+    @NonNull
     private String name;
     @OneToOne
+    @NonNull
     private Specialty specialty;
 
     protected Doctor() {
     }
 
-    public Doctor(String name, Specialty specialty) {
+    public Doctor(String name, @NonNull Specialty specialty) {
+        if(StringUtils.isBlank(name)){
+            throw new IllegalArgumentException("Name cannot be blank");
+        }
         this.name = name;
         this.specialty = specialty;
     }

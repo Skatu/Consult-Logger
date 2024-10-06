@@ -1,4 +1,4 @@
-package org.koerber.consultlogger.controller;
+package org.koerber.consultlogger.service;
 
 import org.koerber.consultlogger.dto.ConsultDTO;
 import org.koerber.consultlogger.exception.DoctorNotFoundException;
