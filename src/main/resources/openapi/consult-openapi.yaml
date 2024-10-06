@@ -1,0 +1,58 @@
+openapi: "3.1.0"
+info:
+  title: "ConsultLogger API"
+  description: "ConsultLogger API"
+  version: "1.0.0"
+servers:
+  - url: "https://ConsultLogger"
+paths:
+  /consults:
+    put:
+      summary: "Create Consult"
+      operationId: "create"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateConsultDTO"
+        required: true
+      responses:
+        "201":
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConsultDTO"
+        "422":
+          description: "Unprocessable Entity"
+        "500":
+          description: "Internal Server Error"
+components:
+  schemas:
+    CreateConsultDTO:
+      type: "object"
+      properties:
+        doctorId:
+          type: "integer"
+          format: "int64"
+        patientId:
+          type: "integer"
+          format: "int64"
+        specialtyId:
+          type: "integer"
+          format: "int64"
+    ConsultDTO:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        doctorId:
+          type: "integer"
+          format: "int64"
+        patientId:
+          type: "integer"
+          format: "int64"
+        specialtyId:
+          type: "integer"
+          format: "int64"

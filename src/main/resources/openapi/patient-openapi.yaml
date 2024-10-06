@@ -1,0 +1,122 @@
+openapi: "3.1.0"
+info:
+  title: "ConsultLogger API"
+  description: "ConsultLogger API"
+  version: "1.0.0"
+servers:
+  - url: "https://ConsultLogger"
+paths:
+  /patients/{patientId}/consultsAndSymptoms:
+    get:
+      summary: "GET patients/{patientId}/consultsAndSymptoms"
+      operationId: "getConsultsAndSymptoms"
+      parameters:
+        - name: "patientId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConsultsSymptomsDTO"
+        "422":
+          description: "Unprocessable Entity"
+        "500":
+          description: "Internal Server Error"
+  /patients/all:
+    get:
+      summary: "GET patients/all"
+      operationId: "getAllPatients"
+      parameters:
+        - name: "pageNumber"
+          in: "query"
+          required: false
+          schema:
+            type: "integer"
+            format: "int32"
+            default: "0"
+        - name: "pageSize"
+          in: "query"
+          required: false
+          schema:
+            type: "integer"
+            format: "int32"
+            default: "5"
+        - name: "sortBy"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+            default: "age"
+        - name: "order"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+            default: "asc"
+        - name: "name"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+        - name: "age"
+          in: "query"
+          required: false
+          schema:
+            type: "integer"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/PatientDTO"
+        "400":
+          description: "Bad Request"
+        "500":
+          description: "Internal Server Error"
+
+components:
+  schemas:
+    SymptomDTO:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        description:
+          type: "string"
+    ConsultsSymptomsDTO:
+      type: "object"
+      properties:
+        consultId:
+          type: "integer"
+          format: "int64"
+        doctorName:
+          type: "string"
+        specialtyName:
+          type: "string"
+        symptoms:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/SymptomDTO"
+    PatientDTO:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+        age:
+          type: "integer"
+          format: "int32"
+        pathologies:
+          type: "array"
+          items:
+            type: "string"
