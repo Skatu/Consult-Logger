@@ -1,7 +1,12 @@
 package org.koerber.consultlogger.service;
 
+import jakarta.transaction.Transactional;
 import org.koerber.consultlogger.controller.ConsultService;
 import org.koerber.consultlogger.dto.ConsultDTO;
+import org.koerber.consultlogger.exception.DoctorNotFoundException;
+import org.koerber.consultlogger.exception.InvalidSpecialtyException;
+import org.koerber.consultlogger.exception.PatientNotFoundException;
+import org.koerber.consultlogger.exception.SpecialtyNotFoundException;
 import org.koerber.consultlogger.model.Consult;
 import org.koerber.consultlogger.repository.ConsultRepository;
 import org.koerber.consultlogger.repository.DoctorRepository;
@@ -28,25 +33,21 @@ public class ConsultServiceImpl implements ConsultService {
     }
 
     @Override
-    public void create(ConsultDTO dto) {
-        Consult consult = convertDTOToConsult(dto);
-        consultRepository.save(consult);
+    @Transactional
+    public ConsultDTO create(ConsultDTO dto) throws DoctorNotFoundException, SpecialtyNotFoundException, PatientNotFoundException, InvalidSpecialtyException {
+        var consultToCreate = mapConsultDTOToConsult(dto);
+        var result = consultRepository.save(consultToCreate);
+        return result.toDTO();
     }
 
-    private Consult convertDTOToConsult(ConsultDTO dto) {
-        var doctor = doctorRepository.findById(dto.doctorId());
-        if(doctor.isEmpty()) {
-            throw new IllegalArgumentException("Doctor not found");
-        }
-        var patient = patientRepository.findById(dto.patientId());
-        if(patient.isEmpty()) {
-            //TODO: maybe create a new patient instead if they dont exist?
-            throw new IllegalArgumentException("Patient not found");
-        }
-        var specialty = specialtyRepository.findById(dto.specialtyId());
-        if(specialty.isEmpty()) {
-            throw new IllegalArgumentException("Specialty not found");
-        }
-        return new Consult(doctor.get(), patient.get(), specialty.get());
+    private Consult mapConsultDTOToConsult(ConsultDTO dto) throws DoctorNotFoundException,
+            SpecialtyNotFoundException, PatientNotFoundException, InvalidSpecialtyException {
+        var doctor = doctorRepository.findById(dto.doctorId())
+                .orElseThrow(()->new DoctorNotFoundException(dto.doctorId()));
+        var specialty = specialtyRepository.findById(dto.specialtyId())
+                .orElseThrow(()-> new SpecialtyNotFoundException(dto.specialtyId()));
+        var patient = patientRepository.findById(dto.patientId())
+                .orElseThrow(()-> new PatientNotFoundException(dto.patientId()));
+        return new Consult(doctor, patient, specialty);
     }
 }
