@@ -42,7 +42,7 @@ I've also provided curl commands for each endpoint:
 "specialtyId":{{specialtyId}}
 }'
 
-where you substitute {{doctorId}}, {{patientId}} and {{specialtyId}} for the respective ids.
+Here you substitute {{doctorId}}, {{patientId}} and {{specialtyId}} for the respective doctor, patient and specialty id.
 The same logic will apply for the subsequent curl requests.
 
 - Get patient consults and symptoms:
@@ -94,3 +94,4 @@ Some observations:
 - For DTOs, I decided to use records to reduce boilerplate code as well.
 - For the endpoint "get all patients", I used a class "PaginationParams" to facilitate the addition of future query params in case there was a need (so we don't have to change the java method signature).
 Currently, the object is created manually. I know we can have Spring auto create the object as a parameter of the HTTP request, but due to lack of time, I decided to not make that change.
+- In the "create consult" endpoint, we pass the specialty id, but currently it's unecessary because the doctor only has 1 specialty. The reason I left it is so, if we ever have a doctor with more than 1 specialty, this system (and any other system that calls this one) is more ready for the change.
