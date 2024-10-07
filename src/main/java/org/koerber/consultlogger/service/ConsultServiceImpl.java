@@ -39,7 +39,7 @@ public class ConsultServiceImpl implements ConsultService {
         return result.toDTO();
     }
 
-    private Consult mapConsultDTOToConsult(ConsultDTO dto) throws DoctorNotFoundException,
+    protected Consult mapConsultDTOToConsult(ConsultDTO dto) throws DoctorNotFoundException,
             PatientNotFoundException, InvalidSpecialtyException {
         log.info("Mapping consultDTO to Consult object: {}" +
                 "\nGetting doctor with id: {}", dto, dto.doctorId());
