@@ -77,7 +77,9 @@ because we have both name and age as filters.
 
 ## Structure
 This project is divided into a classic controller, service, repository, model and DTO layered approach.
-It's currently configured to use in-memory H2 database, but you can use any db. 
+It's currently configured to use in-memory H2 database, but you can use any db by changing the application.properties file and adding the necessary dependencies.
+For persistence, I've used JPA.
+
 On startup, the database is populated with pre-existing data. 
 You can turn off this feature in the application.properties file, by setting the property "loadTemplateData" to false.
 
@@ -87,3 +89,8 @@ Below I've attached a class diagram detailing my approach to designing the model
 Some observations:
 - I've decided to make the ids a Long instead of UUID because Long has less memory overhead, is faster, and the IDs won't be generated/shared across multiple services. 
 - Consult contains a list of symptoms because I thought it makes sense that, when a patient goes to a consult, the doctor registers all the symptoms noted in that specific consult.
+- Pathology associated with the consult is optional, since it's not always possible to diagnose in one consult the pathology.
+- I've used Lombok for getters/setters and logging, to reduce boilerplate code.
+- For DTOs, I decided to use records to reduce boilerplate code as well.
+- For the endpoint "get all patients", I used a class "PaginationParams" to facilitate the addition of future query params in case there was a need (so we don't have to change the java method signature).
+Currently, the object is created manually. I know we can have Spring auto create the object as a parameter of the HTTP request, but due to lack of time, I decided to not make that change.
