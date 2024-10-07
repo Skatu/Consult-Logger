@@ -3,7 +3,7 @@
 ## Using the App
 
 ### How to run
-Inside the folder "docker" folder you will find two files: a Dockerfile and a jar. 
+Inside the folder [docker](docker) you will find two files: a Dockerfile and a jar to build the docker image. 
 The image will run on port 8080. If you wish to run on another port, you can change this line in the Dockerfile,
  
 >EXPOSE 8080
@@ -87,7 +87,7 @@ Below I've attached a class diagram detailing my approach to designing the model
 ![alt text](docs/class_diagram.svg)
 
 Some observations:
-- I've decided to make the ids a Long instead of UUID because Long has less memory overhead, is faster, and the IDs won't be generated/shared across multiple services. 
+- I've decided to make the ids Long instead of UUID because Long has less memory overhead, is faster, and for this exercise, the IDs won't be generated/shared across multiple services. 
 - Consult contains a list of symptoms because I thought it makes sense that, when a patient goes to a consult, the doctor registers all the symptoms noted in that specific consult.
 - Pathology associated with the consult is optional, since it's not always possible to diagnose in one consult the pathology.
 - I've used Lombok for getters/setters and logging, to reduce boilerplate code.
