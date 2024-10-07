@@ -2,11 +2,10 @@ package org.koerber.consultlogger.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.koerber.consultlogger.exception.InvalidSpecialtyException;
 
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class ConsultTest {
@@ -22,17 +21,9 @@ public class ConsultTest {
         doctor2 = new Doctor("Maria", specialty2);
         patient = new Patient("Test1", 1, Collections.emptyList());
     }
-    @Test
-    void test(){
-        var exception = assertThrows(InvalidSpecialtyException.class, () ->
-                new Consult(doctor1, patient));
-        var expectedMessage = "Doctor not assigned to specialty";
-        var actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
 
     @Test
-    void testEqualsForEqualObjects() throws InvalidSpecialtyException {
+    void testEqualsForEqualObjects() {
         var consult1 = new Consult(doctor1, patient);
         var consult2 = new Consult(doctor1, patient);
         consult1.setId(1L);
@@ -41,7 +32,7 @@ public class ConsultTest {
     }
 
     @Test
-    void testEqualsForNonEqualObjects() throws InvalidSpecialtyException {
+    void testEqualsForNonEqualObjects() {
         var consult1 = new Consult(doctor1, patient);
         var consult2 = new Consult(doctor2, patient);
         consult1.setId(1L);
@@ -50,14 +41,14 @@ public class ConsultTest {
     }
 
     @Test
-    void testHashCodeForEqualObjects() throws InvalidSpecialtyException {
+    void testHashCodeForEqualObjects() {
         var consult1 = new Consult(doctor1, patient);
         var consult2 = new Consult(doctor1, patient);
         assertEquals(consult1.hashCode(), consult2.hashCode());
     }
 
     @Test
-    void testHashCodeForNonEqualObjects() throws InvalidSpecialtyException {
+    void testHashCodeForNonEqualObjects() {
         var consult1 = new Consult(doctor1, patient);
         var consult2 = new Consult(doctor2, patient);
         assertNotEquals(consult1.hashCode(), consult2.hashCode());
