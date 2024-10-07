@@ -1,4 +1,4 @@
-package org.koerber.consultlogger.controller;
+package org.koerber.consultlogger.pagination;
 
 public record PaginationParams(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder, String name,
                                Integer age) {

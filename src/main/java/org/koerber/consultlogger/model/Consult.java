@@ -1,13 +1,11 @@
 package org.koerber.consultlogger.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import org.koerber.consultlogger.dto.ConsultDTO;
 import org.koerber.consultlogger.dto.ConsultsSymptomsDTO;
-import org.koerber.consultlogger.exception.InvalidSpecialtyException;
 
 import java.util.ArrayList;
 import java.util.List;

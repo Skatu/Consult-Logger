@@ -2,6 +2,7 @@ package org.koerber.consultlogger.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.koerber.consultlogger.exception.EntityNotFoundException;
+import org.koerber.consultlogger.pagination.PaginationParams;
 import org.koerber.consultlogger.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,5 @@
 package org.koerber.consultlogger;
 
-import org.koerber.consultlogger.exception.InvalidSpecialtyException;
 import org.koerber.consultlogger.model.*;
 import org.koerber.consultlogger.repository.*;
 
@@ -17,7 +16,7 @@ public class Bootstrapper {
                      PatientRepository patientRepository,
                      SpecialtyRepository specialtyRepository,
                      PathologyRepository pathologyRepository,
-                     SymptomRepository symptomRepository) throws InvalidSpecialtyException {
+                     SymptomRepository symptomRepository) {
         var specialties = generateSpecialties();
         var symptoms = generateSymptoms();
         var pathologies = generatePathologies(symptoms);
@@ -30,7 +29,6 @@ public class Bootstrapper {
 
 
         var patients = generatePatients(pathologies);
-        //FIXME ?we could get the specialty from the doctor, but what can happen is the doctor can change specialty
         var consult1 = new Consult(1L, antonio, patients.get("Manuel"), pathologies.get(0));
         consult1.setSymptoms(pathologies.get(0).getSymptoms());
         var consult2 = new Consult(2L, antonio, patients.get("Manuel"), pathologies.get(1));

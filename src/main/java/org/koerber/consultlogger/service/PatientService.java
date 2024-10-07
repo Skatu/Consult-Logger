@@ -1,6 +1,6 @@
 package org.koerber.consultlogger.service;
 
-import org.koerber.consultlogger.controller.PaginationParams;
+import org.koerber.consultlogger.pagination.PaginationParams;
 import org.koerber.consultlogger.dto.ConsultsSymptomsDTO;
 import org.koerber.consultlogger.dto.PatientDTO;
 import org.koerber.consultlogger.exception.ConsultNotFoundException;
