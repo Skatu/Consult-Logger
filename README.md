@@ -84,7 +84,7 @@ On startup, the database is populated with pre-existing data.
 You can turn off this feature in the application.properties file, by setting the property "loadTemplateData" to false.
 
 Below I've attached a class diagram detailing my approach to designing the model.
-![alt text](docs/class_diagram.png)
+![alt text](docs/class_diagram.svg)
 
 Some observations:
 - I've decided to make the ids Long instead of UUID because Long has less memory overhead, is faster, and for this exercise, the IDs won't be generated/shared across multiple services. 
